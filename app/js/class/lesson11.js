@@ -1,10 +1,14 @@
+console.log('--------Proxy--------');
+
 {
+  // 原始对象，供应商
   let obj={
     time:'2017-03-11',
     name:'net',
     _r:123
   };
 
+  // 代理商
   let monitor=new Proxy(obj,{
     // 拦截对象属性的读取
     get(target,key){
@@ -37,7 +41,7 @@
     },
     // 拦截Object.keys,Object.getOwnPropertySymbols,Object.getOwnPropertyNames
     ownKeys(target){
-      return Object.keys(target).filter(item=>item!='time')
+      return Object.keys(target).filter(item=>item!=='time')
     }
   });
 
@@ -45,7 +49,7 @@
 
   monitor.time='2018';
   monitor.name='mukewang';
-  console.log('set',monitor.time,monitor);
+  console.log('set',monitor.time,monitor, obj);
 
   console.log('has','name' in monitor,'time' in monitor);
 
@@ -57,6 +61,8 @@
   console.log('ownKeys',Object.keys(monitor));
 
 }
+
+console.log('--------Reflect--------');
 
 {
   let obj={
@@ -70,3 +76,53 @@
   console.log(obj);
   console.log('has',Reflect.has(obj,'name'));
 }
+
+console.log('--------实现校验模块--------');
+
+{
+  function validator (target, validator) {
+    return new Proxy(target, {
+      _validator: validator,
+      set(target, key, value, proxy) {
+        if (target.hasOwnProperty(key)) {
+          let va = this._validator[key];
+          if (!!va(value)) {
+            return Reflect.set(target, key, value, proxy);
+          } else {
+            throw Error(`不能设置${key}到${value}`)
+          }
+        } else {
+          throw Error(`${key}不存在`)
+        }
+      }
+    })
+  }
+
+  const personValidators = {
+    name(val) {
+      return typeof val === 'string';
+    },
+    age(val) {
+      return typeof val === 'number' && val > 18
+    }
+  }
+
+  class Person {
+    constructor(name, age) {
+      this.name = name;
+      this.age = age;
+      return validator(this, personValidators)
+    }
+  }
+
+  const person = new Person('lilei', 30);
+
+  console.info('new Person("lilei", 30)', person);
+
+  // person.name = 48; // 这里会报错
+
+  person.name = 'han mei mei';
+
+  console.log(person);
+}
+
