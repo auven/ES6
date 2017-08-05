@@ -55,7 +55,22 @@
 
 	__webpack_require__(2);
 
-	__webpack_require__(299);
+	var _lesson = __webpack_require__(299);
+
+	var _lesson2 = _interopRequireDefault(_lesson);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	console.log(_lesson2.default); // 可处理ES7
+	// import Lottery from './lottery';
+	// import './class/lesson16';
+
+	/*
+	import {A} from './class/lesson17';
+
+	import * as lesson from './class/lesson17';
+
+	console.log(lesson);*/
 
 /***/ }),
 /* 2 */
@@ -8703,148 +8718,51 @@
 
 	'use strict';
 
-	console.log('--------es5异步操作模拟ajax--------');
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 
-	{
-	  // 基本定义
-	  var ajax = function ajax(callback) {
-	    console.log('执行');
-	    setTimeout(function () {
-	      callback && callback.call();
-	    }, 1000);
-	  };
-	  ajax(function () {
-	    console.log('es5  timeout1');
-	  });
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/*export let A=123;
+
+	export function test(){
+	  console.log('test');
 	}
 
-	console.log('--------es6, Promise--------');
+	export class Hello{
+	  test(){
+	    console.log('class');
+	  }
+	}*/
 
-	{
-	  var _ajax = function _ajax() {
-	    console.log('执行2');
-	    return new Promise(function (resolve, reject) {
-	      // resolve执行下一步操作，reject终止操作
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  };
+	var A = 123;
+	var test = function test() {
+	  console.log('test');
+	};
 
-	  _ajax().then(function () {
-	    console.log('promise', 'timeout2');
-	  });
-	}
+	var Hello = function () {
+	  function Hello() {
+	    _classCallCheck(this, Hello);
+	  }
 
-	{
-	  var _ajax2 = function _ajax2() {
-	    console.log('执行3');
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 1000);
-	    });
-	  };
+	  _createClass(Hello, [{
+	    key: 'test',
+	    value: function test() {
+	      console.log('class');
+	    }
+	  }]);
 
-	  _ajax2().then(function () {
-	    return new Promise(function (resolve, reject) {
-	      setTimeout(function () {
-	        resolve();
-	      }, 2000);
-	    });
-	  }).then(function () {
-	    console.log('timeout3');
-	  });
-	}
+	  return Hello;
+	}();
 
-	{
-	  var _ajax3 = function _ajax3(num) {
-	    console.log('执行4');
-	    return new Promise(function (resolve, reject) {
-	      if (num > 5) {
-	        resolve();
-	      } else {
-	        throw new Error('出错了');
-	      }
-	    });
-	  };
-
-	  _ajax3(6).then(function () {
-	    console.log('log', 6);
-	  }).catch(function (err) {
-	    console.log('catch', err);
-	  });
-
-	  _ajax3(3).then(function () {
-	    console.log('log', 3);
-	  }).catch(function (err) {
-	    console.log('catch', err);
-	  });
-	}
-
-	console.log('--------实际应用--------');
-
-	console.log('--------所有图片加载完再添加到页面--------');
-
-	{
-	  // 所有图片加载完再添加到页面
-	  var loadImg = function loadImg(src) {
-	    return new Promise(function (resolve, reject) {
-	      var img = document.createElement('img');
-	      img.src = src;
-	      img.onload = function () {
-	        resolve(img);
-	      };
-	      img.onerror = function (err) {
-	        reject(err);
-	      };
-	    });
-	  };
-
-	  var showImgs = function showImgs(imgs) {
-	    imgs.forEach(function (img) {
-	      document.body.appendChild(img);
-	    });
-	  };
-
-	  var errmsg = function errmsg(err) {
-	    console.log('发生错误', err);
-	  };
-
-	  Promise.all([// 把多个Promise实例当做一个实例
-	  loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/567571/2b07ee25b08930ba.png'), loadImg('http://i4.buimg.com/567571/5eb8190d6b2a1c9c.png')]).then(showImgs, errmsg);
-	}
-
-	console.log('--------有一个图片加载完就添加到页面--------');
-
-	{
-	  // 有一个图片加载完就添加到页面
-	  var _loadImg = function _loadImg(src) {
-	    return new Promise(function (resolve, reject) {
-	      var img = document.createElement('img');
-	      img.src = src;
-	      img.onload = function () {
-	        resolve(img);
-	      };
-	      img.onerror = function (err) {
-	        reject(err);
-	      };
-	    });
-	  };
-
-	  var _showImgs = function _showImgs(img) {
-	    var p = document.createElement('p');
-	    p.appendChild(img);
-	    document.body.appendChild(p);
-	  };
-
-	  var _errmsg = function _errmsg(err) {
-	    console.log('加载图片失败', err);
-	  };
-
-	  Promise.race([// 把多个Promise实例当做一个实例
-	  _loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/567571/2b07ee25b08930ba.png'), _loadImg('http://abc.cmm/aaa.png')]).then(_showImgs, _errmsg);
-	}
+	exports.default = {
+	  A: A,
+	  test: test,
+	  Hello: Hello
+	};
 
 /***/ })
 /******/ ]);

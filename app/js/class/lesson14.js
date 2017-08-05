@@ -7,6 +7,16 @@
 }
 
 {
+
+  /*let obj1 = {
+    aa: 1,
+    bb: 2
+  };
+
+  for (let key of obj1) {  // 报错 Uncaught TypeError: obj1[Symbol.iterator] is not a function
+    console.log(key);
+  }*/
+
   let obj={
     start:[1,3,2],
     end:[7,9,8],
@@ -32,6 +42,9 @@
       }
     }
   }
+
+  console.log(obj);
+
   for(let key of obj){
     console.log(key);
   }
