@@ -1,3 +1,6 @@
+// 在es6中默认强制开启了严格模式。
+// let 和 const 均不能重复声明。
+
 function test(){
   // for(let i=1;i<3;i++){
   //   console.log(i);

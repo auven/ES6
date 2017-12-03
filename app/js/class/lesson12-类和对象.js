@@ -6,7 +6,7 @@
     }
   }
   let v_parent=new Parent('v');
-  console.log('构造函数和实例',v_parent);
+  console.log('构造函数和实例',v_parent); // Parent {name: "v"}
 }
 
 {
@@ -21,7 +21,7 @@
 
   }
 
-  console.log('继承',new Child(), new Child('haha'));
+  console.log('继承',new Child(), new Child('haha')); // Child {name: "mukewang"} Child {name: "haha"}
 }
 
 {
@@ -39,7 +39,7 @@
     }
   }
 
-  console.log('继承传递参数',new Child(),new Child('hello'));
+  console.log('继承传递参数',new Child(),new Child('hello')); // Child {name: "child", type: "child"} Child {name: "hello", type: "child"}
 }
 
 {
@@ -59,9 +59,9 @@
   }
 
   let v=new Parent();
-  console.log('getter',v.longName);
+  console.log('getter',v.longName); // mkmukewang
   v.longName='hello';
-  console.log('setter',v.longName);
+  console.log('setter', v.name, v.longName); // hello mkhello
 }
 
 {

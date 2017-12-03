@@ -19,12 +19,12 @@ console.log('--------简洁表示法--------');
 
   let es5_method={
     hello:function(){
-      console.log('hello');
+      console.log('es5 hello');
     }
   };
   let es6_method={
     hello(){
-      console.log('hello');
+      console.log('es6 hello');
     }
   };
   console.log('es5_method.hello()');
@@ -47,8 +47,8 @@ console.log('--------属性表达式--------');
     [a]:'c'
   };
 
-  console.log('es5_obj', es5_obj);
-  console.log('es6_obj', es6_obj);
+  console.log('es5_obj', es5_obj); // {a: 'c', b: 'c'}
+  console.log('es6_obj', es6_obj); // {b: 'c'}
 
 }
 
@@ -59,10 +59,17 @@ console.log('--------新增api--------');
 
   console.log('判断是否相等');
 
-  console.log('字符串',Object.is('abc','abc'),'abc'==='abc');
-  console.log('数组',Object.is([],[]),[]===[]);
+  console.log('字符串',Object.is('abc','abc'),'abc'==='abc'); // true true
+  console.log('数组',Object.is([],[]),[]===[]); // false false
 
-  console.log('拷贝',Object.assign({a:'a'},{b:'b'})); // 拷贝的属性是有限制的，这个拷贝是浅拷贝，即如果拷贝的是引用类型，则拷贝的是地址，而不是复制新的值
+  let a = {a: 'a'};
+  let b = {b: 'b'};
+  let c = Object.assign(a, b)
+  console.log('拷贝',c); // 拷贝的属性是有限制的，这个拷贝是浅拷贝，即如果拷贝的是引用类型，则拷贝的是地址，而不是复制新的值
+  c.b = 'c';
+  c.a = 'd';
+  console.log(c);
+  console.log(a, b); // {a: 'd', b: 'c'}  {b: 'b'}
 
   let test={k:123,o:456};
   for(let [key,value] of Object.entries(test)){

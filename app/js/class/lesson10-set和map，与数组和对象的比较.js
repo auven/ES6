@@ -7,14 +7,14 @@ console.log('--------set--------');
   list.add(5);
   list.add(7);
 
-  console.log('size',list,list.size);
+  console.log('size',list,list.size); // Set(2) {5, 7} 2
 }
 
 {
   let arr = [1,2,3,4,5];
   let list = new Set(arr);
 
-  console.log('size',list,list.size);
+  console.log('size',list,list.size); // Set(5) {1, 2, 3, 4, 5} 5
 }
 
 console.log('--------添加重复的元素，不会报错，可以用来去重--------');
@@ -25,14 +25,14 @@ console.log('--------添加重复的元素，不会报错，可以用来去重--
   list.add(2);
   list.add(1);
 
-  console.log('list',list);
+  console.log('list',list); // Set(2) {1, 2}
 
   // 在转换时不会做数据类型的转化
 
   let arr=[1,2,3,1,'2'];
   let list2=new Set(arr);
 
-  console.log('unique',list2);
+  console.log('unique',list2); // Set(4) {1, 2, 3, '2'}
 }
 
 console.log('--------add,delete,clear,has--------');
@@ -41,10 +41,10 @@ console.log('--------add,delete,clear,has--------');
   let arr=['add','delete','clear','has'];
   let list=new Set(arr);
 
-  console.log('has',list.has('add'),list);
-  console.log('delete',list.delete('add'),list);
+  console.log('has',list.has('add'),list); // true Set(4) {"add", "delete", "clear", "has"}
+  console.log('delete',list.delete('add'),list); // true Set(3) {"delete", "clear", "has"}
   list.clear();
-  console.log('clear',list);
+  console.log('clear',list); // Set(0) {}
 }
 
 console.log('--------keys,valus,entries,forEach--------');
@@ -77,7 +77,7 @@ console.log('--------WeakSet--------');
 
   // weakList.add(2); // 这里会报错
 
-  console.log('weakList',weakList);
+  console.log('weakList',weakList); // WeakSet {{…}}
 }
 
 console.log('--------map对象的属性名可以是任何数据类型--------');
@@ -88,17 +88,17 @@ console.log('--------map对象的属性名可以是任何数据类型--------');
 
   map.set(arr,456);
 
-  console.log('map',map,map.get(arr));
+  console.log('map',map,map.get(arr)); // Map(1) {Array(1) => 456} 456
 }
 
 console.log('--------map的第二种声明方式--------');
 
 {
   let map = new Map([['a',123],['b',456]]);
-  console.log('map args',map);
-  console.log('size',map.size);
-  console.log('delete',map.delete('a'),map);
-  console.log('clear',map.clear(),map);
+  console.log('map args',map); // Map(2) {"a" => 123, "b" => 456}
+  console.log('size',map.size); // 2
+  console.log('delete',map.delete('a'),map); // true Map(1) {"b" => 456}  
+  console.log('clear',map.clear(),map); // undefined Map(0) {}
 }
 
 console.log('--------WeakMap--------');
@@ -108,7 +108,7 @@ console.log('--------WeakMap--------');
 
   let o={a: 1};
   weakmap.set(o,123);
-  console.log(weakmap, weakmap.get(o));
+  console.log(weakmap, weakmap.get(o)); // WeakMap {{…} => 123} 123
 }
 
 console.log('--------数据结构横向对比，增，删，改，查--------');
@@ -120,23 +120,23 @@ console.log('--------数据结构横向对比，增，删，改，查--------');
   map.set('t', 1);
   array.push({t: 1});
 
-  console.info('map-array-add', map, array);
+  console.info('map-array-add', map, array); // Map(1) {"t" => 1} [{…}]
 
   // 查
   let map_exist = map.has('t');
   let array_exist = array.find(item => item.t);
-  console.info('map-array-find', map_exist, array_exist);
+  console.info('map-array-find', map_exist, array_exist); // true {t: 1}
 
   // 改
   map.set('t', 2);
   array.forEach(item => item.t ? item.t = 2 : '');
-  console.log('map-array-modify', map, array);
+  console.log('map-array-modify', map, array); // Map(1) {"t" => 2} [{…}]
 
   // 删除
   map.delete('t');
   let index = array.findIndex(item => item.t);
   array.splice(index, 1);
-  console.log('map-array-delete', map, array);
+  console.log('map-array-delete', map, array); // Map(0) {} []
 }
 
 console.log('-------set和array的对比--------');

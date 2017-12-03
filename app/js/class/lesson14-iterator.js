@@ -1,9 +1,9 @@
 {
   let arr=['hello','world'];
   let map=arr[Symbol.iterator]();
-  console.log(map.next());
-  console.log(map.next());
-  console.log(map.next());
+  console.log(map.next()); // {value: "hello", done: false}
+  console.log(map.next()); // {value: "world", done: false}
+  console.log(map.next()); // {value: undefined, done: true}
 }
 
 {

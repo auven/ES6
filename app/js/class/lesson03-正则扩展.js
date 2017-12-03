@@ -2,7 +2,7 @@
     // #构造函数# ES5中写法
     let regex = new RegExp('xyz', 'i'); //第一个参数是字符串，第二个是修饰符
     let regex2 = new RegExp(/xyz/i); //第一个参数是正则表达式，不接受第二个参数，否则会报错
-    console.log(regex.test('xyz123'), regex2.test('xyz123'));
+    console.log(regex.test('xyz123'), regex2.test('xyz123')); // true true
 
     // ES6中支持写法
     let regex3 = new RegExp(/abc/ig, 'i');
